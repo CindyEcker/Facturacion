@@ -4,59 +4,74 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h2 class="text-center">Editar cliente</h2>
 
-<h4>Cliente</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Nombre_Comercial" class="control-label"></label>
-                <input asp-for="Nombre_Comercial" class="form-control" />
-                <span asp-validation-for="Nombre_Comercial" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RNC" class="control-label"></label>
-                <input asp-for="RNC" class="form-control" />
-                <span asp-validation-for="RNC" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Direccion" class="control-label"></label>
-                <input asp-for="Direccion" class="form-control" />
-                <span asp-validation-for="Direccion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Cuenta_Contable" class="control-label"></label>
-                <input asp-for="Cuenta_Contable" class="form-control" />
-                <span asp-validation-for="Cuenta_Contable" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Telefono" class="control-label"></label>
-                <input asp-for="Telefono" class="form-control" />
-                <span asp-validation-for="Telefono" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ID_Estado" class="control-label"></label>
-                <select asp-for="ID_Estado" asp-items="ViewBag.Estados" class="form-control"></select>
-                <span asp-validation-for="ID_Estado" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+<div class="container w-75 d-block div-bordered">
 
-<div>
-    <a asp-action="Index">Back to List</a>
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+
+        <section class="p-3">
+            <div class="container">
+                <div class="card-bordered">
+                    <div class="card-body">
+                        <div class="form-group row mt-2">
+                            <div class="col-12 text-center">
+                                <h4 class="font-weight-bold mb-3">Datos del cliente</h4>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Nombre_Comercial" class="control-label"></label>
+                            <input asp-for="Nombre_Comercial" class="form-control" required />
+                            <span asp-validation-for="Nombre_Comercial" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="RNC" class="control-label"></label>
+                            <input asp-for="RNC" class="form-control" required />
+                            <span asp-validation-for="RNC" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Direccion" class="control-label"></label>
+                            <input asp-for="Direccion" class="form-control" required />
+                            <span asp-validation-for="Direccion" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Cuenta_Contable" class="control-label"></label>
+                            <input asp-for="Cuenta_Contable" class="form-control" required />
+                            <span asp-validation-for="Cuenta_Contable" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Telefono" class="control-label"></label>
+                            <input asp-for="Telefono" class="form-control" required />
+                            <span asp-validation-for="Telefono" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" type="email" class="form-control" required />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group pb-2">
+                            <label asp-for="ID_Estado" class="control-label"></label>
+                            <select asp-for="ID_Estado" class="form-control" asp-items="ViewBag.ID_Estado"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="form-group row mt-4">
+            <div class="col-6 text-right">
+                <input type="submit" value="Guardar cambios" class="btn btn-success px-3 py-2 w-75" />
+            </div>
+
+            <div class="col-6 text-left">
+                <a class="btn btn-secondary px-3 py-2 w-75" asp-action="Index">Volver atrás</a>
+            </div>
+        </div>
+    </form>
 </div>
 
 @section Scripts {
