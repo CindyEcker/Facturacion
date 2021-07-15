@@ -21,6 +21,7 @@ namespace Facturacion.Controllers
         // GET: Clientes
         public async Task<IActionResult> Index()
         {
+            AgregarEstadosAViewBag();
             return View(await _context.Clientes.ToListAsync());
         }
 
@@ -45,6 +46,7 @@ namespace Facturacion.Controllers
         // GET: Clientes/Create
         public IActionResult Create()
         {
+            AgregarEstadosAViewBag();
             return View();
         }
 
@@ -149,7 +151,7 @@ namespace Facturacion.Controllers
 
         private void AgregarEstadosAViewBag()
         {
-            ViewBag.Estados = _context.Estados.Select(r => new SelectListItem { Text = r.Descripcion, Value = r.ID.ToString() });
+            ViewBag.Estados = _context.Estados;
         }
 
         private bool ClienteExists(int id)

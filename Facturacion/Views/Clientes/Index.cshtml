@@ -58,7 +58,7 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Estado)
+                @(((IEnumerable<Estado>)ViewBag.Estados).FirstOrDefault(r=>r.ID==item.ID_Estado).Descripcion)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
