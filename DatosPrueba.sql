@@ -1,5 +1,3 @@
-CREATE DATABASE Facturacion
-GO
 USE Facturacion
 
 --Datos de prueba
