@@ -66,7 +66,6 @@ namespace Facturacion.Controllers
             }
 
             ViewData["ID_Estado"] = new SelectList(_context.Estados, "ID", "Descripcion", cliente.Estado.Descripcion);
-            AgregarEstadosAViewBag();
             return View(cliente);
         }
 
@@ -83,7 +82,6 @@ namespace Facturacion.Controllers
             {
                 return NotFound();
             }
-            AgregarEstadosAViewBag();
 
             ViewData["ID_Estado"] = new SelectList(_context.Estados, "ID", "Descripcion");
             return View(cliente);
@@ -121,7 +119,7 @@ namespace Facturacion.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            AgregarEstadosAViewBag();
+
             ViewData["ID_Estado"] = new SelectList(_context.Estados, "ID", "Descripcion", cliente.Estado.Descripcion);
             return View(cliente);
         }
