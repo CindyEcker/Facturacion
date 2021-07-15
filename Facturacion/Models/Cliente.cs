@@ -19,22 +19,14 @@ namespace Facturacion.Models
 
         public string Direccion { get; set; }
 
+        [Display(Name = "Cuenta Contable")]
         public int Cuenta_Contable { get; set; }
 
         public string Telefono { get; set; }
 
         public string Email { get; set; }
-
-        [ForeignKey("Estado")]
+        [Display(Name = "Estado")]
         public int ID_Estado { get; set; }
         public Estado Estado { get; set; }
-
-
-
-
-
-
-
-
     }
 }
