@@ -25,6 +25,10 @@ body {
     border-color: #337ab7;
 }
 
+.div-error {
+    text-align: center;
+}
+
 .panel-primary > .panel-heading {
     border-color: #337ab7;
     color: white;

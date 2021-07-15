@@ -39,10 +39,10 @@ namespace Facturacion.Controllers
                     HttpContext.Session.SetString("Usuario", usuario.Nombre_Usuario);
                     return RedirectToAction("Index", "Home");
                 }
-            }
-            else
-            {
-                ViewBag.Error = "El usuario o la contraseña que ha ingresado no son válidos.";
+                else
+                {
+                    ViewData["Error"] = "El usuario o la contraseña que ha ingresado no son válidos.";
+                }
             }
 
             return View(user);

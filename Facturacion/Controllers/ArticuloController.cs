@@ -43,13 +43,14 @@ namespace Facturacion.Controllers
                 return NotFound();
             }
 
+            ViewData["ID_Estado"] = new SelectList(_context.Estados, "ID", "Descripcion");
             return View(articulo);
         }
 
         // GET: Articulo/Create
         public IActionResult Create()
         {
-            ViewData["ID_Estado"] = new SelectList(_context.Estados, "ID", "ID");
+            ViewData["ID_Estado"] = new SelectList(_context.Estados, "ID", "Descripcion");
             return View();
         }
 
@@ -66,7 +67,8 @@ namespace Facturacion.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ID_Estado"] = new SelectList(_context.Estados, "ID", "ID", articulo.ID_Estado);
+
+            ViewData["ID_Estado"] = new SelectList(_context.Estados, "ID", "Descripcion", articulo.Estado.Descripcion);
             return View(articulo);
         }
 
@@ -83,7 +85,8 @@ namespace Facturacion.Controllers
             {
                 return NotFound();
             }
-            ViewData["ID_Estado"] = new SelectList(_context.Estados, "ID", "ID", articulo.ID_Estado);
+
+            ViewData["ID_Estado"] = new SelectList(_context.Estados, "ID", "Descripcion");
             return View(articulo);
         }
 
@@ -119,7 +122,8 @@ namespace Facturacion.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ID_Estado"] = new SelectList(_context.Estados, "ID", "ID", articulo.ID_Estado);
+
+            ViewData["ID_Estado"] = new SelectList(_context.Estados, "ID", "Descripcion", articulo.Estado.Descripcion);
             return View(articulo);
         }
 
@@ -139,6 +143,7 @@ namespace Facturacion.Controllers
                 return NotFound();
             }
 
+            ViewData["ID_Estado"] = new SelectList(_context.Estados, "ID", "Descripcion");
             return View(articulo);
         }
 
