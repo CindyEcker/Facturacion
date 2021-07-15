@@ -37,6 +37,7 @@ namespace Facturacion.Controllers
 
             var vendedor = await _context.Vendedores
                 .Include(v => v.Estado)
+                .Include(v => v.Usuario)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (vendedor == null)
             {
@@ -159,6 +160,7 @@ namespace Facturacion.Controllers
                 return NotFound();
             }
 
+            ViewData["ID_Estado"] = new SelectList(_context.Estados, "ID", "Descripcion");
             return View(vendedor);
         }
 
@@ -167,8 +169,12 @@ namespace Facturacion.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var user = await _context.Usuarios.FirstOrDefaultAsync(m => m.ID_Vendedor == id);
+            _context.Usuarios.Remove(user);
+
             var vendedor = await _context.Vendedores.FindAsync(id);
             _context.Vendedores.Remove(vendedor);
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
