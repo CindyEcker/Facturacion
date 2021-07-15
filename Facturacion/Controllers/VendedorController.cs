@@ -41,13 +41,15 @@ namespace Facturacion.Controllers
                 return NotFound();
             }
 
+            ViewData["ID_Estado"] = new SelectList(_context.Estados, "ID", "Descripcion");
+
             return View(vendedor);
         }
 
         // GET: Vendedor/Create
         public IActionResult Create()
         {
-            ViewData["ID_Estado"] = new SelectList(_context.Estados, "ID", "ID");
+            ViewData["ID_Estado"] = new SelectList(_context.Estados, "ID", "Descripcion");
             return View();
         }
 
@@ -56,15 +58,23 @@ namespace Facturacion.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Nombre,Porc_Comision,ID_Estado")] Vendedor vendedor)
+        public async Task<IActionResult> Create([Bind("ID,Nombre,Porc_Comision,ID_Estado,Usuario")] Vendedor vendedor)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(vendedor);
                 await _context.SaveChangesAsync();
+
+                Usuario user = new Usuario();
+                user.Nombre_Usuario = vendedor.Usuario.Nombre_Usuario;
+                user.Contraseña = vendedor.Usuario.Contraseña;
+                user.ID_Vendedor = vendedor.ID;
+                _context.Add(user);
+                await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ID_Estado"] = new SelectList(_context.Estados, "ID", "ID", vendedor.ID_Estado);
+            ViewData["ID_Estado"] = new SelectList(_context.Estados, "ID", "Descripcion", vendedor.Estado.Descripcion);
             return View(vendedor);
         }
 
@@ -77,11 +87,16 @@ namespace Facturacion.Controllers
             }
 
             var vendedor = await _context.Vendedores.FindAsync(id);
+            var user = await _context.Usuarios.FirstOrDefaultAsync(m => m.ID_Vendedor == vendedor.ID);
+            vendedor.Usuario.Nombre_Usuario = user.Nombre_Usuario;
+            vendedor.Usuario.Contraseña = user.Contraseña;
+
             if (vendedor == null)
             {
                 return NotFound();
             }
-            ViewData["ID_Estado"] = new SelectList(_context.Estados, "ID", "ID", vendedor.ID_Estado);
+
+            ViewData["ID_Estado"] = new SelectList(_context.Estados, "ID", "Descripcion");
             return View(vendedor);
         }
 
@@ -90,7 +105,7 @@ namespace Facturacion.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Nombre,Porc_Comision,ID_Estado")] Vendedor vendedor)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Nombre,Porc_Comision,ID_Estado,Usuario")] Vendedor vendedor)
         {
             if (id != vendedor.ID)
             {
@@ -101,6 +116,11 @@ namespace Facturacion.Controllers
             {
                 try
                 {
+                    var user = await _context.Usuarios.FirstOrDefaultAsync(m => m.ID_Vendedor == vendedor.ID);
+                    user.Nombre_Usuario = vendedor.Usuario.Nombre_Usuario;
+                    user.Contraseña = vendedor.Usuario.Contraseña;
+
+                    _context.Update(user);
                     _context.Update(vendedor);
                     await _context.SaveChangesAsync();
                 }
@@ -117,7 +137,7 @@ namespace Facturacion.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ID_Estado"] = new SelectList(_context.Estados, "ID", "ID", vendedor.ID_Estado);
+            ViewData["ID_Estado"] = new SelectList(_context.Estados, "ID", "Descripcion", vendedor.Estado.Descripcion);
             return View(vendedor);
         }
 

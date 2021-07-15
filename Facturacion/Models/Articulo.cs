@@ -12,7 +12,7 @@ namespace Facturacion.Models
         public string Descripcion { get; set; }
         public decimal Precio_Unitario { get; set; }
         [ForeignKey("Estado")]
-        public int EstadoID { get; set; }
+        public int ID_Estado { get; set; }
 
         public Estado Estado { get; set; }
     }

@@ -9,7 +9,7 @@ Create table Articulos
   ID int primary key Identity,
   Descripcion varchar (50),
   Precio_Unitario  DECIMAL(18, 2),
-  EstadoID int
+  ID_Estado int
 )
 go
 
@@ -19,7 +19,7 @@ Create table Clientes
   Nombre_Comercial varchar(100),
   RNCOCEDULA varchar(13),
   Cuenta_contable int, 
-  EstadoID int
+  ID_Estado int
 )
 
 go
@@ -56,7 +56,7 @@ Create table Asiento_Contable
   Tipo_Movimiento Char(5),
   Fecha_Asiento Date,
   Monto_Asiento  DECIMAL(18, 2),
-  EstadoID int
+  ID_Estado int
 )
 go
 

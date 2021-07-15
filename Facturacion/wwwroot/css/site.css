@@ -5,6 +5,12 @@
     --color-blue: #2196F3;
 }
 
+#content {
+    overflow-y: auto;
+    height: 100vh;
+    padding-bottom: 5rem;
+}
+
 body {
     font-family: 'Muli', sans-serif;
     font-weight: 300;
@@ -59,15 +65,21 @@ a.navbar-brand {
     word-break: break-all;
 }
 
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
+.card-bordered {
+    border: 2px solid #337ab7;
+    border-radius: 5px;
+    background-color: #ECF1FF;
 }
 
-.btn-primary {
-    color: #fff;
-    background-color: var(--primary);
-    border-color: #1861ac;
+.card-rounded {
+    border: 2px solid #337ab7;
+    border-radius: 5px;
+    background-color: #FDFDFD;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+    color: #0366d6;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {

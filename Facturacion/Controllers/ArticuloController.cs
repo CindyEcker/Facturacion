@@ -21,7 +21,7 @@ namespace Facturacion.Controllers
         // GET: Articulo
         public async Task<IActionResult> Index()
         {
-            var facturacionDbContext = _context.Articulos.Include(v => v.Estado);
+            var facturacionDbContext = _context.Articulos.Include(a => a.Estado);
             return View(await facturacionDbContext.ToListAsync());
         }
 
@@ -34,7 +34,7 @@ namespace Facturacion.Controllers
             }
 
             var articulo = await _context.Articulos
-                .Include(v => v.Estado)
+                .Include(a => a.Estado)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (articulo == null)
             {
@@ -47,16 +47,16 @@ namespace Facturacion.Controllers
         // GET: Articulo/Create
         public IActionResult Create()
         {
-            ViewData["EstadoID"] = new SelectList(_context.Estados, "ID", "Descripcion");
+            ViewData["ID_Estado"] = new SelectList(_context.Estados, "ID", "ID");
             return View();
         }
 
-        // POST: VenArticulodedor/Create
+        // POST: Articulo/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID, Descripcion, Precio_Unitario, EstadoID")] Articulo articulo)
+        public async Task<IActionResult> Create([Bind("ID,Descripcion,Precio_Unitario,ID_Estado")] Articulo articulo)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +64,7 @@ namespace Facturacion.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EstadoID"] = new SelectList(_context.Estados, "ID", "Descripcion", articulo.EstadoID);
+            ViewData["ID_Estado"] = new SelectList(_context.Estados, "ID", "ID", articulo.ID_Estado);
             return View(articulo);
         }
 
@@ -81,7 +81,7 @@ namespace Facturacion.Controllers
             {
                 return NotFound();
             }
-            ViewData["EstadoID"] = new SelectList(_context.Estados, "ID", "Descripcion", articulo.EstadoID);
+            ViewData["ID_Estado"] = new SelectList(_context.Estados, "ID", "ID", articulo.ID_Estado);
             return View(articulo);
         }
 
@@ -90,7 +90,7 @@ namespace Facturacion.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID, Descripcion, Precio_Unitario, EstadoID")] Articulo articulo)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Descripcion,Precio_Unitario,ID_Estado")] Articulo articulo)
         {
             if (id != articulo.ID)
             {
@@ -117,7 +117,7 @@ namespace Facturacion.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EstadoID"] = new SelectList(_context.Estados, "ID", "Descripcion", articulo.EstadoID);
+            ViewData["ID_Estado"] = new SelectList(_context.Estados, "ID", "ID", articulo.ID_Estado);
             return View(articulo);
         }
 
@@ -130,7 +130,7 @@ namespace Facturacion.Controllers
             }
 
             var articulo = await _context.Articulos
-                .Include(v => v.Estado)
+                .Include(a => a.Estado)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (articulo == null)
             {
