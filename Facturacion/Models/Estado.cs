@@ -10,7 +10,6 @@ namespace Facturacion.Models
     {
         public int ID { get; set; }
         [Display(Name = "Descripción")]
-        [Required(ErrorMessage = "Es requerido")]
 
         public string Descripcion { get; set; }
 

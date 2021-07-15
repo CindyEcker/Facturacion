@@ -11,7 +11,6 @@ namespace Facturacion.Models
     {
         public int ID { get; set; }
         [Display(Name = "Usuario")]
-        [Required(ErrorMessage = "Es requerido")]
         public string Nombre_Usuario { get; set; }
         public string Contraseña { get; set; }
         [ForeignKey("Vendedor")]
