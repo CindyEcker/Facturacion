@@ -1,0 +1,79 @@
+
+Create database facturacion 
+go
+
+use facturacion
+go
+
+Create table Articulos
+(
+ArticuloID int primary key Identity,
+Descripcion varchar (50),
+Precio_Unitario  DECIMAL(5,2),
+Estado bit
+)
+go
+
+Create table Clientes
+(
+ClienteID int primary key Identity, 
+Nombre_Comercial varchar(100),
+RNCOCEDULA varchar(13),
+Cuenta_contable int, 
+Estado bit
+)
+
+go
+
+Create table vendedores 
+(
+Vendedorid int primary key Identity,
+Nombre varchar(50),
+Porciento_comision DECIMAL(5,2),
+Estado bit 
+)
+go
+
+Create table Facturas
+(
+Facturaid int primary key Identity, 
+VendedorID int,
+ClienteID int, 
+Fecha datetime,
+Comentario Text,
+ArticuloID int,
+Cantidad int,
+Precio DECIMAL(5,2) Default 0,
+)
+go
+
+Create table Asiento_Contable
+(
+AsientoID int primary key Identity, 
+Descripcion varchar(50),
+ClienteId int,
+Tipo_Movimiento Char(5),
+Fecha_Asiento Date,
+Monto_Asiento  DECIMAL(5,2),
+Estado bit
+)
+go
+
+
+
+ALTER TABLE Facturas
+ADD CONSTRAINT FK_Vendedor
+FOREIGN KEY (Vendedorid) REFERENCES Vendedores(Vendedorid);
+
+ALTER TABLE Facturas
+ADD CONSTRAINT FK_Cliente
+FOREIGN KEY (Clienteid) REFERENCES Clientes(Clienteid);
+
+ALTER TABLE Facturas
+ADD CONSTRAINT FK_Articulo
+FOREIGN KEY (ArticuloID) REFERENCES Articulos(Articuloid);
+
+ALTER TABLE Asiento_Contable
+ADD CONSTRAINT FK_Asiento_cliente
+FOREIGN KEY (Clienteid) REFERENCES clientes(Clienteid);
+
