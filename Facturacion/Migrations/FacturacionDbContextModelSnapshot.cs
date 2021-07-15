@@ -151,7 +151,7 @@ namespace Facturacion.Migrations
             modelBuilder.Entity("Facturacion.Models.Cliente", b =>
                 {
                     b.HasOne("Facturacion.Models.Estado", "Estado")
-                        .WithMany()
+                        .WithMany("Clientes")
                         .HasForeignKey("ID_Estado")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

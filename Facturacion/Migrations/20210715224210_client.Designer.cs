@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Facturacion.Migrations
 {
     [DbContext(typeof(FacturacionDbContext))]
-    [Migration("20210715210838_AddClientTable")]
-    partial class AddClientTable
+    [Migration("20210715224210_client")]
+    partial class client
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,8 +34,8 @@ namespace Facturacion.Migrations
                     b.Property<int>("ID_Estado")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Precio_Unitario")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Precio_Unitario")
+                        .HasColumnType("float");
 
                     b.HasKey("ID");
 
@@ -60,9 +60,6 @@ namespace Facturacion.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("EstadoID")
-                        .HasColumnType("int");
-
                     b.Property<int>("ID_Estado")
                         .HasColumnType("int");
 
@@ -77,7 +74,7 @@ namespace Facturacion.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EstadoID");
+                    b.HasIndex("ID_Estado");
 
                     b.ToTable("Clientes");
                 });
@@ -128,13 +125,13 @@ namespace Facturacion.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ID_Estado")
+                    b.Property<int?>("ID_Estado")
                         .HasColumnType("int");
 
                     b.Property<string>("Nombre")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Porc_Comision")
+                    b.Property<int?>("Porc_Comision")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
@@ -156,8 +153,10 @@ namespace Facturacion.Migrations
             modelBuilder.Entity("Facturacion.Models.Cliente", b =>
                 {
                     b.HasOne("Facturacion.Models.Estado", "Estado")
-                        .WithMany()
-                        .HasForeignKey("EstadoID");
+                        .WithMany("Clientes")
+                        .HasForeignKey("ID_Estado")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Facturacion.Models.Usuario", b =>
@@ -173,9 +172,7 @@ namespace Facturacion.Migrations
                 {
                     b.HasOne("Facturacion.Models.Estado", "Estado")
                         .WithMany("Vendedores")
-                        .HasForeignKey("ID_Estado")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ID_Estado");
                 });
 #pragma warning restore 612, 618
         }

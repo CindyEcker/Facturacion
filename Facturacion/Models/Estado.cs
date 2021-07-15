@@ -15,5 +15,6 @@ namespace Facturacion.Models
 
         public virtual ICollection<Vendedor> Vendedores { get; set; }
         public virtual ICollection<Articulo> Articulos { get; set; }
+        public virtual ICollection<Cliente> Clientes { get; set; }
     }
 }

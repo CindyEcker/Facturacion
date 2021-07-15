@@ -21,8 +21,8 @@ namespace Facturacion.Controllers
         // GET: Clientes
         public async Task<IActionResult> Index()
         {
-            AgregarEstadosAViewBag();
-            return View(await _context.Clientes.ToListAsync());
+            var facturacionDbContext = _context.Clientes.Include(v => v.Estado);
+            return View(await facturacionDbContext.ToListAsync());
         }
 
         // GET: Clientes/Details/5
