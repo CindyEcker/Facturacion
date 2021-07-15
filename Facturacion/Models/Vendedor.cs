@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-<<<<<<< HEAD
 using System.ComponentModel;
-=======
->>>>>>> fcbf2418a77cb95776e29517201e1c737e327c17
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
