@@ -1,79 +1,85 @@
-
-Create database facturacion 
+Create database Facturacion 
 go
 
-use facturacion
+use Facturacion
 go
 
 Create table Articulos
 (
-ArticuloID int primary key Identity,
-Descripcion varchar (50),
-Precio_Unitario  DECIMAL(5,2),
-Estado bit
+  ID int primary key Identity,
+  Descripcion varchar (50),
+  Precio_Unitario  DECIMAL(18, 2),
+  EstadoID int
 )
 go
 
 Create table Clientes
 (
-ClienteID int primary key Identity, 
-Nombre_Comercial varchar(100),
-RNCOCEDULA varchar(13),
-Cuenta_contable int, 
-Estado bit
+  ID int primary key Identity, 
+  Nombre_Comercial varchar(100),
+  RNCOCEDULA varchar(13),
+  Cuenta_contable int, 
+  EstadoID int
 )
 
 go
 
 Create table vendedores 
 (
-Vendedorid int primary key Identity,
-Nombre varchar(50),
-Porciento_comision DECIMAL(5,2),
-Estado bit 
+  ID int primary key Identity,
+  Nombre varchar(50),
+  Porc_Comision int,
+  ID_ESTADO int
 )
 go
 
+
 Create table Facturas
 (
-Facturaid int primary key Identity, 
-VendedorID int,
-ClienteID int, 
-Fecha datetime,
-Comentario Text,
-ArticuloID int,
-Cantidad int,
-Precio DECIMAL(5,2) Default 0,
+  ID int primary key Identity, 
+  VendedorID int,
+  ClienteID int, 
+  Fecha datetime,
+  Comentario Text,
+  ArticuloID int,
+  Cantidad int,
+  Precio DECIMAL(18, 2) Default 0,
 )
+
 go
 
 Create table Asiento_Contable
 (
-AsientoID int primary key Identity, 
-Descripcion varchar(50),
-ClienteId int,
-Tipo_Movimiento Char(5),
-Fecha_Asiento Date,
-Monto_Asiento  DECIMAL(5,2),
-Estado bit
+  ID int primary key Identity, 
+  Descripcion varchar(50),
+  ClienteID int,
+  Tipo_Movimiento Char(5),
+  Fecha_Asiento Date,
+  Monto_Asiento  DECIMAL(18, 2),
+  EstadoID int
 )
 go
 
+CREATE TABLE Estados (
+  ID int primary key Identity, 
+  Descripcion varchar(50)
+)
 
+INSERT INTO ESTADOS (Descripcion) VALUES ('Activo'), ('Inactivo')
 
-ALTER TABLE Facturas
-ADD CONSTRAINT FK_Vendedor
-FOREIGN KEY (Vendedorid) REFERENCES Vendedores(Vendedorid);
+-- ALTER TABLE Facturas
+-- ADD CONSTRAINT FK_Vendedor
+-- FOREIGN KEY (VendedorID) REFERENCES Vendedores(ID);
 
-ALTER TABLE Facturas
-ADD CONSTRAINT FK_Cliente
-FOREIGN KEY (Clienteid) REFERENCES Clientes(Clienteid);
+-- ALTER TABLE Facturas
+-- ADD CONSTRAINT FK_Cliente
+-- FOREIGN KEY (ClienteID) REFERENCES Clientes(ID);
 
-ALTER TABLE Facturas
-ADD CONSTRAINT FK_Articulo
-FOREIGN KEY (ArticuloID) REFERENCES Articulos(Articuloid);
+-- ALTER TABLE Facturas
+-- ADD CONSTRAINT FK_Articulo
+-- FOREIGN KEY (ArticuloID) REFERENCES Articulos(ID);
 
-ALTER TABLE Asiento_Contable
-ADD CONSTRAINT FK_Asiento_cliente
-FOREIGN KEY (Clienteid) REFERENCES clientes(Clienteid);
+-- ALTER TABLE Asiento_Contable
+-- ADD CONSTRAINT FK_Asiento_cliente
+-- FOREIGN KEY (ClienteID) REFERENCES Clientes(ID);
 

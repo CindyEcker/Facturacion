@@ -10,9 +10,9 @@ namespace Facturacion.Models
     {
         public int ID { get; set; }
         public string Descripcion { get; set; }
-        public double Precio_Unitario { get; set; }
+        public decimal Precio_Unitario { get; set; }
         [ForeignKey("Estado")]
-        public int ID_Estado { get; set; }
+        public int EstadoID { get; set; }
 
         public Estado Estado { get; set; }
     }

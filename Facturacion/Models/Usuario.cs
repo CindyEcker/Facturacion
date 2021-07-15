@@ -12,7 +12,7 @@ namespace Facturacion.Models
         public string Nombre_Usuario { get; set; }
         public string Contraseña { get; set; }
         [ForeignKey("Vendedor")]
-        public int ID_Vendedor { get; set; }
+        public int VendedorID { get; set; }
 
         public Vendedor Vendedor { get; set; }
     }
