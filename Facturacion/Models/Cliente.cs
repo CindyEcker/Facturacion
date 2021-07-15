@@ -25,7 +25,7 @@ namespace Facturacion.Models
         public string Telefono { get; set; }
 
         public string Email { get; set; }
-        [Display(Name = "Estado")]
+        [ForeignKey("Estado")]
         public int ID_Estado { get; set; }
         public Estado Estado { get; set; }
     }

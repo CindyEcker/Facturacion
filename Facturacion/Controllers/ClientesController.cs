@@ -21,7 +21,6 @@ namespace Facturacion.Controllers
         // GET: Clientes
         public async Task<IActionResult> Index()
         {
-            AgregarEstadosAViewBag();
             return View(await _context.Clientes.ToListAsync());
         }
 
