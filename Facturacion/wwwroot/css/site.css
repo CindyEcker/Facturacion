@@ -85,7 +85,7 @@ a.navbar-brand {
     -webkit-transform: translate(-50%, -50%);
 }
 
-.div-bordered {
+.div-acceso {
     border: 5px solid var(--primary);
     border-radius: 10px;
     background-color: #337ab7;
