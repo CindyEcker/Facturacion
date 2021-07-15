@@ -11,10 +11,52 @@ body {
     color: var(--primary);
 }
 
+.panel .panel-heading a {
+    color: white;
+}
+
+.panel-primary {
+    border-color: #337ab7;
+}
+
+.panel-primary > .panel-heading {
+    border-color: #337ab7;
+    color: white;
+    background-color: #337ab7;
+}
+
+.panel-primary > a {
+    color: #337ab7;
+}
+
+.panel-primary > a:hover {
+    color: #1861ac;
+}
+
+.panel-primary-bordered {
+    border: 2px solid #337ab7;
+    border-radius: 5px;
+}
+
+.panel-yellow-bordered {
+    border: 2px solid #f0ad4e;
+    border-radius: 5px;
+}
+
+.panel-green-bordered {
+    border: 2px solid #5cb85c;
+    border-radius: 5px;
+}
+
+.panel-red-bordered {
+    border: 2px solid #d9534f;
+    border-radius: 5px;
+}
+
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */

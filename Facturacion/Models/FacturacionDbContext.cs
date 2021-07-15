@@ -12,9 +12,9 @@ namespace Facturacion.Models
         {
         }
 
-        DbSet<Estado> Estados { get; set; }
-        DbSet<Articulo> Articulos { get; set; }
-        DbSet<Usuario> Usuarios { get; set; }
-        DbSet<Vendedor> Vendedores { get; set; }
+        public DbSet<Estado> Estados { get; set; }
+        public DbSet<Articulo> Articulos { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Vendedor> Vendedores { get; set; }
     }
 }
