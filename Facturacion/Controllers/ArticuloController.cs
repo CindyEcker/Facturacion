@@ -59,7 +59,7 @@ namespace Facturacion.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Descripcion,Precio_Unitario,ID_Estado")] Articulo articulo)
+        public async Task<IActionResult> Create([Bind("ID,Descripcion,Precio_Unitario,Stock,ID_Estado")] Articulo articulo)
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +95,7 @@ namespace Facturacion.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Descripcion,Precio_Unitario,ID_Estado")] Articulo articulo)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Descripcion,Precio_Unitario,Stock,ID_Estado")] Articulo articulo)
         {
             if (id != articulo.ID)
             {

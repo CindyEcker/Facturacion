@@ -14,6 +14,7 @@ namespace Facturacion.Models
         public string Descripcion { get; set; }
         [Display(Name = "Precio Unitario")]
         public decimal Precio_Unitario { get; set; }
+        public int Stock { get; set; }
         [ForeignKey("Estado")]
         [Display(Name = "Estado")]
         public int ID_Estado { get; set; }
