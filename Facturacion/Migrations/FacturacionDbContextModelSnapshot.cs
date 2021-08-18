@@ -95,6 +95,48 @@ namespace Facturacion.Migrations
                     b.ToTable("Estados");
                 });
 
+            modelBuilder.Entity("Facturacion.Models.Factura", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Comentario")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("ID_Articulo")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ID_Asiento")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ID_Cliente")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ID_Vendedor")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Monto")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ID_Articulo");
+
+                    b.HasIndex("ID_Cliente");
+
+                    b.HasIndex("ID_Vendedor");
+
+                    b.ToTable("Facturas");
+                });
+
             modelBuilder.Entity("Facturacion.Models.Usuario", b =>
                 {
                     b.Property<int>("ID")
@@ -158,6 +200,21 @@ namespace Facturacion.Migrations
                         .HasForeignKey("ID_Estado")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Facturacion.Models.Factura", b =>
+                {
+                    b.HasOne("Facturacion.Models.Articulo", "Articulo")
+                        .WithMany("Facturas")
+                        .HasForeignKey("ID_Articulo");
+
+                    b.HasOne("Facturacion.Models.Cliente", "Cliente")
+                        .WithMany("Facturas")
+                        .HasForeignKey("ID_Cliente");
+
+                    b.HasOne("Facturacion.Models.Vendedor", "Vendedor")
+                        .WithMany("Facturas")
+                        .HasForeignKey("ID_Vendedor");
                 });
 
             modelBuilder.Entity("Facturacion.Models.Usuario", b =>

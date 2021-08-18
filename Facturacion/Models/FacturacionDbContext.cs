@@ -17,5 +17,6 @@ namespace Facturacion.Models
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Vendedor> Vendedores { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Factura> Facturas { get; set; }
     }
 }

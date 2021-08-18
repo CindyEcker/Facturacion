@@ -30,5 +30,7 @@ namespace Facturacion.Models
         [Display(Name = "Estado")]
         public int ID_Estado { get; set; }
         public Estado Estado { get; set; }
+        public virtual ICollection<Factura> Facturas { get; set; }
+
     }
 }

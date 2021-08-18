@@ -13,6 +13,7 @@ namespace Facturacion.Models
         [Display(Name = "Descripción")]
         public string Descripcion { get; set; }
         [Display(Name = "Precio Unitario")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Precio_Unitario { get; set; }
         public int Stock { get; set; }
         [ForeignKey("Estado")]
@@ -20,5 +21,7 @@ namespace Facturacion.Models
         public int ID_Estado { get; set; }
 
         public Estado Estado { get; set; }
+        public virtual ICollection<Factura> Facturas { get; set; }
+
     }
 }

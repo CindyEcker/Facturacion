@@ -24,5 +24,6 @@ namespace Facturacion.Models
 
         public Estado Estado { get; set; }
         public Usuario Usuario { get; set; }
+        public virtual ICollection<Factura> Facturas { get; set; }
     }
 }

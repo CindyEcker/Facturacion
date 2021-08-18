@@ -26,7 +26,8 @@ namespace Facturacion.Migrations
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Descripcion = table.Column<string>(nullable: true),
-                    Precio_Unitario = table.Column<double>(nullable: false),
+                    Precio_Unitario = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Stock = table.Column<int>(nullable: false),
                     ID_Estado = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -41,14 +42,39 @@ namespace Facturacion.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Clientes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre_Comercial = table.Column<string>(nullable: true),
+                    RNC = table.Column<int>(nullable: false),
+                    Direccion = table.Column<string>(nullable: true),
+                    Cuenta_Contable = table.Column<int>(nullable: false),
+                    Telefono = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    ID_Estado = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clientes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Clientes_Estados_ID_Estado",
+                        column: x => x.ID_Estado,
+                        principalTable: "Estados",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Vendedores",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(nullable: true),
-                    Porc_Comision = table.Column<int>(nullable: false),
-                    ID_Estado = table.Column<int>(nullable: false)
+                    Porc_Comision = table.Column<int>(nullable: true),
+                    ID_Estado = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -58,7 +84,7 @@ namespace Facturacion.Migrations
                         column: x => x.ID_Estado,
                         principalTable: "Estados",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -88,6 +114,11 @@ namespace Facturacion.Migrations
                 column: "ID_Estado");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Clientes_ID_Estado",
+                table: "Clientes",
+                column: "ID_Estado");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Usuarios_ID_Vendedor",
                 table: "Usuarios",
                 column: "ID_Vendedor",
@@ -103,6 +134,9 @@ namespace Facturacion.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Articulos");
+
+            migrationBuilder.DropTable(
+                name: "Clientes");
 
             migrationBuilder.DropTable(
                 name: "Usuarios");

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Facturacion.Migrations
 {
     [DbContext(typeof(FacturacionDbContext))]
-    [Migration("20210715224210_client")]
-    partial class client
+    [Migration("20210818071431_facturacion")]
+    partial class facturacion
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,8 +34,11 @@ namespace Facturacion.Migrations
                     b.Property<int>("ID_Estado")
                         .HasColumnType("int");
 
-                    b.Property<double>("Precio_Unitario")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Precio_Unitario")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Stock")
+                        .HasColumnType("int");
 
                     b.HasKey("ID");
 
@@ -92,6 +95,48 @@ namespace Facturacion.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Estados");
+                });
+
+            modelBuilder.Entity("Facturacion.Models.Factura", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Comentario")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("ID_Articulo")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ID_Asiento")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ID_Cliente")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ID_Vendedor")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Monto")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ID_Articulo");
+
+                    b.HasIndex("ID_Cliente");
+
+                    b.HasIndex("ID_Vendedor");
+
+                    b.ToTable("Facturas");
                 });
 
             modelBuilder.Entity("Facturacion.Models.Usuario", b =>
@@ -157,6 +202,21 @@ namespace Facturacion.Migrations
                         .HasForeignKey("ID_Estado")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Facturacion.Models.Factura", b =>
+                {
+                    b.HasOne("Facturacion.Models.Articulo", "Articulo")
+                        .WithMany("Facturas")
+                        .HasForeignKey("ID_Articulo");
+
+                    b.HasOne("Facturacion.Models.Cliente", "Cliente")
+                        .WithMany("Facturas")
+                        .HasForeignKey("ID_Cliente");
+
+                    b.HasOne("Facturacion.Models.Vendedor", "Vendedor")
+                        .WithMany("Facturas")
+                        .HasForeignKey("ID_Vendedor");
                 });
 
             modelBuilder.Entity("Facturacion.Models.Usuario", b =>

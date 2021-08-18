@@ -1,0 +1,129 @@
+﻿@model Facturacion.Models.Factura
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2 class="text-center">Nueva factura</h2>
+
+<hr />
+<div class="container w-75 d-block div-bordered">
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <section class="p-3">
+            <div class="container">
+                <div class="card-bordered">
+                    <div class="card-body">
+                        <div class="form-group row mt-2">
+                            <div class="col-12 text-center">
+                                <h4 class="font-weight-bold mb-3">Datos de la factura</h4>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="ID_Vendedor" class="control-label"></label>
+                            <select asp-for="ID_Vendedor" class="form-control" asp-items="ViewBag.ID_Vendedor"></select>
+                            <span asp-validation-for="ID_Vendedor" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ID_Cliente" class="control-label"></label>
+                            <select asp-for="ID_Cliente" class="form-control" asp-items="ViewBag.ID_Cliente"></select>
+                            <span asp-validation-for="ID_Cliente" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Fecha" class="control-label"></label>
+                            <input asp-for="Fecha" class="form-control" required />
+                            <span asp-validation-for="Fecha" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Comentario" class="control-label"></label>
+                            <input asp-for="Comentario" class="form-control" />
+                            <span asp-validation-for="Comentario" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="p-3">
+            <div class="container">
+                <div class="card-bordered">
+                    <div class="card-body">
+                        <div class="form-group row mt-2">
+                            <div class="col-12 text-center">
+                                <h4 class="font-weight-bold mb-3">Datos del artículo</h4>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="ID_Articulo" class="control-label"></label>
+                            <select asp-for="ID_Articulo" id="ID_Articulo" name="ID_Articulo" class="form-control" asp-items="ViewBag.ID_Articulo"></select>
+                            <span asp-validation-for="ID_Articulo" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Articulo.Precio_Unitario" class="control-label"></label>
+                            <input asp-for="Articulo.Precio_Unitario" type="number" id="precioUnit" name="precioUnit" class="form-control" disabled />
+                            <span asp-validation-for="Articulo.Precio_Unitario" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Cantidad" class="control-label"></label>
+                            <input asp-for="Cantidad" type="number" id="Cantidad" name="Cantidad" min="0" value="0" class="form-control" required/>
+                            <span asp-validation-for="Cantidad" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Monto" class="control-label"></label>
+                            <input asp-for="Monto" type="number" id="Monto" name="Monto" min="0" class="form-control" readonly />
+                            <span asp-validation-for="Monto" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="form-group row mt-4">
+            <div class="col-6 text-right">
+                <input type="submit" value="Crear factura" class="btn btn-success px-3 py-2 w-50" />
+            </div>
+
+            <div class="col-6 text-left">
+                <a class="btn btn-secondary px-3 py-2 w-50" asp-action="Index">Volver atrás</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(document).ready(function () {
+            $("#ID_Articulo").on("change", function () {
+                $.ajax({
+                    data: { id: $("#ID_Articulo").val() },
+                    type: "GET",
+                    url: '@Url.Action("precioUnitario", "Facturas")',
+                    success: function (resultado) {
+                        $("#precioUnit").val(resultado);
+                    }
+                });
+            });
+
+            $("#Cantidad").on("input", function () {
+                $.ajax({
+                    data: { cantidad: $("#Cantidad").val(), id: $("#ID_Articulo").val() },
+                    type: "GET",
+                    url: '@Url.Action("montoTotal", "Facturas")',
+                    success: function (resultado) {
+                        $("#Monto").val(resultado);
+                    }
+                });
+            });
+        });
+    </script>
+}

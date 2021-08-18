@@ -1,10 +1,10 @@
-﻿@model Facturacion.Models.Vendedor
+﻿@model Facturacion.Models.Factura
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Eliminar";
 }
 
-<h2 class="text-center">Eliminar vendedor</h2>
+<h2 class="text-center">Eliminar factura</h2>
 
 <hr />
 
@@ -16,22 +16,31 @@
                     <div class="card-body">
                         <div class="form-group row mt-2">
                             <div class="col-12 text-center">
-                                <h4 class="font-weight-bold mb-3">Datos del vendedor</h4>
+                                <h4 class="font-weight-bold mb-3">Datos de la factura</h4>
                             </div>
                         </div>
                         <hr />
 
                         <div class="form-group">
-                            <label asp-for="Nombre" class="control-label"></label>
-                            <input asp-for="Nombre" class="form-control" disabled />
+                            <label asp-for="ID" class="control-label"></label>
+                            <input asp-for="ID" class="form-control" disabled />
                         </div>
                         <div class="form-group">
-                            <label asp-for="Porc_Comision" class="control-label"></label>
-                            <input asp-for="Porc_Comision" class="form-control" disabled />
+                            <label asp-for="ID_Vendedor" class="control-label"></label>
+                            <input asp-for="Vendedor.Nombre" class="form-control" disabled />
                         </div>
                         <div class="form-group">
-                            <label asp-for="ID_Estado" class="control-label"></label>
-                            <select asp-for="ID_Estado" class="form-control" asp-items="ViewBag.ID_Estado" disabled></select>
+                            <label asp-for="ID_Cliente" class="control-label"></label>
+                            <input asp-for="Cliente.Nombre_Comercial" class="form-control" disabled />
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Fecha" class="control-label"></label>
+                            <input asp-for="Fecha" class="form-control" disabled />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Monto" class="control-label"></label>
+                            <input asp-for="Monto" class="form-control" disabled />
                         </div>
                     </div>
                 </div>

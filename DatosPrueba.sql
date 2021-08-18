@@ -17,10 +17,10 @@ INSERT INTO Usuarios VALUES('mpeña','admin', 3);
 INSERT INTO Usuarios VALUES('cecker','admin', 4);
 INSERT INTO Usuarios VALUES('ivargas','admin', 5)
 
-INSERT INTO Articulos VALUES('Laptop Dell',60000, 1, 20)
-INSERT INTO Articulos VALUES('Laptop ASUS', 20000.00, 1, 30)
-INSERT INTO Articulos VALUES('Laptop Acer',33000.80, 1, 60)
-INSERT INTO Articulos VALUES('Laptop HP', 50000.20, 1, 25)
+INSERT INTO Articulos VALUES('Laptop Dell',60000, 20, 1)
+INSERT INTO Articulos VALUES('Laptop ASUS', 20000.00, 30, 1)
+INSERT INTO Articulos VALUES('Laptop Acer',33000.80, 60, 1)
+INSERT INTO Articulos VALUES('Laptop HP', 50000.20, 25, 1)
 
 INSERT INTO Clientes VALUES('Ferrex',401223658, 'Urb. Centro Viejo, c/Rodolfo Gomez #35', 154623451, '8096523655', 'ferrex@email.com', 1)
 INSERT INTO Clientes VALUES('Agami',40124548, 'Urb. Centro Viejo, c/Rodolfo Gomez #10', 154655251, '8096233655', 'agami@email.com', 1)
