@@ -5,7 +5,21 @@
 }
 
 <h2 class="text-center">Listado de Facturas</h2>
-<div class="well well-sm mb-4"><a class="btn btn-primary px-3" asp-action="Create">Nuevo</a></div>
+<div class="well well-sm mb-4"><a class="btn btn-success px-4" asp-action="Create"><span class="fa fa-plus mr-2"></span>Nueva factura</a></div>
+
+<form method="get" asp-action="Index" class="mb-3 ml-2">
+    <div class="form-group row text-left">
+        <label class="my-0 mr-2 p-2">Fecha desde:</label>
+        <input class="form-control col-2 mr-5" type="date" id="fechaDesde" name="fechaDesde" value="@ViewData["desde"]" max="@DateTime.Now.ToString("yyyy-MM-dd")" required />
+
+        <label class="my-0 mr-2 p-2">Fecha hasta:</label>
+        <input class="form-control col-2 mr-3" type="date" id="fechaHasta" name="fechaHasta" value="@ViewData["hasta"]" max="@DateTime.Now.ToString("yyyy-MM-dd")" required />
+
+        <button class="btn btn-primary col-1 mr-2" type="submit"><i class="fa fa-search"></i></button>
+        <a class="btn btn-secondary col-3" asp-action="Index"><span class="fa fa-file"></span> Obtener todos los registros</a>
+    </div>
+</form>
+
 <table class="table table-hover table-striped">
     <thead>
         <tr>
@@ -33,35 +47,40 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Vendedor.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cliente.Nombre_Comercial)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fecha)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Monto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ID_Asiento)
-            </td>
-            <td>
-                <a class="btn btn-success mr-2" asp-action="Details" asp-route-id="@item.ID"><span class="fa fa-eye"></span></a>
-                <a class="btn btn-info mr-2" asp-action="Edit" asp-route-id="@item.ID"><span class="fa fa-edit"></span></a>
-                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ID"><span class="fa fa-trash"></span></a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vendedor.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cliente.Nombre_Comercial)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fecha)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Monto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID_Asiento)
+                </td>
+                <td>
+                    <a class="btn btn-success mr-2" asp-action="Details" asp-route-id="@item.ID"><span class="fa fa-eye"></span></a>
+                    <a class="btn btn-info mr-2" asp-action="Edit" asp-route-id="@item.ID"><span class="fa fa-edit"></span></a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ID"><span class="fa fa-trash"></span></a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
 
-<div class="mt-2 right">
-    <a class="btn btn-secondary px-4" asp-action="Contabilizar"><span class="fa fa-calculator mr-2"></span>Contabilizar</a>
-</div>
+<form method="post" asp-action="Contabilizar" class="mb-3 ml-2">
+    <div class="mt-2 right">
+        <input type="hidden" id="fechaDesde" name="fechaDesde" value="@ViewData["desde"]" />
+        <input type="hidden" id="fechaHasta" name="fechaHasta" value="@ViewData["hasta"]" />
+        <button class="btn btn-info px-5" type="submit"><i class="fa fa-calculator mr-2"></i>Contabilizar</button>
+        <div class="div-error">@ViewData["Error"]</div>
+    </div>
+</form>

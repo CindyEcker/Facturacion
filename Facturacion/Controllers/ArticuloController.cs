@@ -27,6 +27,23 @@ namespace Facturacion.Controllers
             return View(await facturacionDbContext.ToListAsync());
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Index(string filter)
+        {
+            ViewData["filter"] = filter;
+            var articulos = _context.Articulos.Include(v => v.Estado).AsQueryable();
+
+            if (!String.IsNullOrEmpty(filter))
+            {
+                articulos = articulos.Where(x => x.Descripcion.Contains(filter)
+                                        || x.Stock.ToString().Contains(filter)
+                                        || x.Precio_Unitario.ToString().Contains(filter)
+                                        || x.Estado.Descripcion.Contains(filter));
+            }
+
+            return View(await articulos.AsNoTracking().ToListAsync());
+        }
+
         // GET: Articulo/Details/5
         public async Task<IActionResult> Details(int? id)
         {

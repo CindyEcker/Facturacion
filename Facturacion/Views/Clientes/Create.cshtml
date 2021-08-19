@@ -31,6 +31,7 @@
                             <label asp-for="RNC" class="control-label"></label>
                             <input asp-for="RNC" class="form-control" required />
                             <span asp-validation-for="RNC" class="text-danger"></span>
+                            <div class="div-error">@ViewData["Error"]</div>
                         </div>
                         <div class="form-group">
                             <label asp-for="Cuenta_Contable" class="control-label"></label>

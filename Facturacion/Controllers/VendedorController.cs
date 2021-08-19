@@ -27,6 +27,23 @@ namespace Facturacion.Controllers
             return View(await facturacionDbContext.ToListAsync());
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Index(string filter)
+        {
+            ViewData["filter"] = filter;
+            var vendedores = _context.Vendedores.Include(v => v.Estado).Include(v => v.Usuario).AsQueryable();
+
+            if (!String.IsNullOrEmpty(filter))
+            {
+                vendedores = vendedores.Where(x => x.Nombre.Contains(filter)
+                                || x.Porc_Comision.ToString().Contains(filter)
+                                || x.Usuario.Nombre_Usuario.Contains(filter)
+                                || x.Estado.Descripcion.Contains(filter));
+            }
+
+            return View(await vendedores.AsNoTracking().ToListAsync());
+        }
+
         // GET: Vendedor/Details/5
         public async Task<IActionResult> Details(int? id)
         {

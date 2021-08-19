@@ -30,6 +30,7 @@ namespace Facturacion.Models
 
         public int Cantidad { get; set; }
 
+        [Display(Name = "Monto Total")]
         [Column(TypeName = "decimal(18,2)")]
         public decimal Monto { get; set; }
 

@@ -5,12 +5,24 @@
 }
 
 <h2 class="text-center">Listado de Vendedores</h2>
-<div class="well well-sm mb-4"><a class="btn btn-primary px-3" asp-action="Create">Nuevo</a></div>
+<div class="well well-sm mb-4"><a class="btn btn-success px-4" asp-action="Create"><span class="fa fa-plus mr-2"></span>Nuevo vendedor</a></div>
+
+<form method="get" asp-action="Index" class="mb-3 ml-2">
+    <div class="form-group row">
+        <input class="form-control col-7 mr-2" type="search" placeholder="Ingrese su búsqueda..." value="@ViewData["filter"]" name="filter">
+        <button class="btn btn-primary col-1 mr-2" type="submit"><i class="fa fa-search"></i></button>
+        <a class="btn btn-secondary col-3" asp-action="Index"><span class="fa fa-file"></span> Obtener todos los registros</a>
+    </div>
+</form>
+
 <table class="table table-hover table-striped">
         <thead>
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Usuario.Nombre_Usuario)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Porc_Comision)
@@ -27,6 +39,9 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Usuario.Nombre_Usuario)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Porc_Comision)

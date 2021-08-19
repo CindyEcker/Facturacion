@@ -25,6 +25,25 @@ namespace Facturacion.Controllers
             return View(await facturacionDbContext.ToListAsync());
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Index(string filter)
+        {
+            ViewData["filter"] = filter;
+            var clientes = _context.Clientes.Include(v => v.Estado).AsQueryable();
+
+            if (!String.IsNullOrEmpty(filter))
+            {
+                clientes = clientes.Where(x => x.Nombre_Comercial.Contains(filter)
+                                || x.RNC.ToString().Contains(filter)
+                                || x.Cuenta_Contable.ToString().Contains(filter)
+                                || x.Telefono.Contains(filter)
+                                || x.Email.Contains(filter)
+                                || x.Estado.Descripcion.Contains(filter));
+            }
+
+            return View(await clientes.AsNoTracking().ToListAsync());
+        }
+
         // GET: Clientes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -60,12 +79,19 @@ namespace Facturacion.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(cliente);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (esUnRNCValido(cliente.RNC.ToString()))
+                {
+                    _context.Add(cliente);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    ViewData["Error"] = "El RNC ingresado no es valido.";
+                }
             }
 
-            ViewData["ID_Estado"] = new SelectList(_context.Estados, "ID", "Descripcion", cliente.Estado.Descripcion);
+            ViewData["ID_Estado"] = new SelectList(_context.Estados, "ID", "Descripcion");
             return View(cliente);
         }
 
@@ -162,6 +188,43 @@ namespace Facturacion.Controllers
         private bool ClienteExists(int id)
         {
             return _context.Clientes.Any(e => e.Id == id);
+        }
+
+        private bool esUnRNCValido(string pRNC)
+        {
+            try
+            {
+                int vnTotal = 0;
+                int[] digitoMult = new int[8] { 7, 9, 8, 6, 5, 4, 3, 2 };
+                string vcRNC = pRNC.Replace("-", "").Replace(" ", "");
+                string vDigito = vcRNC.Substring(8, 1);
+
+                if (vcRNC.Length.Equals(9))
+                {
+                    for (int vDig = 1; vDig <= 8; vDig++)
+                    {
+                        int vCalculo = Int32.Parse(vcRNC.Substring(vDig - 1, 1)) * digitoMult[vDig - 1];
+                        vnTotal += vCalculo;
+                    }
+
+                    if (vnTotal % 11 == 0 && vDigito == "1" || vnTotal % 11 == 1 && vDigito == "1" || (11 - (vnTotal % 11)) == Int32.Parse(vDigito))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
         }
     }
 }
