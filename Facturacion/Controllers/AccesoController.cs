@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Http;
 
 namespace Facturacion.Controllers
 {
-    // INTENTO DE COMMIT
     public class AccesoController : Controller
     {
         private readonly FacturacionDbContext _context;
@@ -36,7 +35,7 @@ namespace Facturacion.Controllers
 
                 if (usuario != null)
                 {
-                    HttpContext.Session.SetString("Usuario", usuario.Nombre_Usuario);
+                    this.HttpContext.Session.SetString("Usuario", usuario.Nombre_Usuario);
                     return RedirectToAction("Index", "Home");
                 }
                 else

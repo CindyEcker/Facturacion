@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Facturacion.Models;
+using Facturacion.Filters;
 
 namespace Facturacion.Controllers
 {
+    [VerificarSession]
     public class ClientesController : Controller
     {
         private readonly FacturacionDbContext _context;

@@ -33,10 +33,13 @@ namespace Facturacion.Controllers
             var facturacionDbContext = _context.Facturas.Include(f => f.Cliente).Include(f => f.Vendedor)
                                          .Include(f => f.Articulo).Where(v => v.ID_Asiento == null);
 
-            var fDesde = _context.Facturas.Min(x => x.Fecha);
-            var fHasta = _context.Facturas.Max(x => x.Fecha);
-            ViewData["desde"] = fDesde.ToString("yyyy-MM-dd");
-            ViewData["hasta"] = fHasta.ToString("yyyy-MM-dd");
+            if (facturacionDbContext.Count() != 0)
+            {
+                var fDesde = _context.Facturas.Min(x => x.Fecha);
+                var fHasta = _context.Facturas.Max(x => x.Fecha);
+                ViewData["desde"] = fDesde.ToString("yyyy-MM-dd");
+                ViewData["hasta"] = fHasta.ToString("yyyy-MM-dd");
+            }
 
             return View(await facturacionDbContext.ToListAsync());
         }
@@ -48,11 +51,14 @@ namespace Facturacion.Controllers
             var facturas = _context.Facturas.Include(v => v.Vendedor).Include(x => x.Cliente)
                             .Where(v => v.ID_Asiento == null).AsQueryable();
 
-            var fDesde = _context.Facturas.Min(x => x.Fecha);
-            var fHasta = _context.Facturas.Max(x => x.Fecha);
-            ViewData["desde"] = fDesde.ToString("yyyy-MM-dd");
-            ViewData["hasta"] = fHasta.ToString("yyyy-MM-dd");
-
+            if(facturas.Count() != 0)
+            {
+                var fDesde = _context.Facturas.Min(x => x.Fecha);
+                var fHasta = _context.Facturas.Max(x => x.Fecha);
+                ViewData["desde"] = fDesde.ToString("yyyy-MM-dd");
+                ViewData["hasta"] = fHasta.ToString("yyyy-MM-dd");
+            }
+            
             if (!String.IsNullOrEmpty(fechaDesde) && !String.IsNullOrEmpty(fechaHasta))
             {
                 ViewData["desde"] = fechaDesde;
@@ -302,7 +308,6 @@ namespace Facturacion.Controllers
 
                 if (response.StatusCode == HttpStatusCode.Created)
                 {
-                    //tu servicio respondio bien y puedes hacer alguna accion si necesitas saber la respuesta
                     var contents = response.Content.ReadAsStringAsync().Result;
                     dynamic jsonObj = JsonConvert.DeserializeObject(contents);
                     var numAsiento = jsonObj["id"].ToString();
